@@ -13,7 +13,7 @@ int displayMenu()
 	changeColor color{};
 	XY xy{};
 	char input;
-	int option = 1; //1= New file 2= Open and Append File 3= Exit
+	int option = 1; //1= New file 2= Open File 3= Exit
 
 	color.changeTextColor(143);
 	cout << "[FILE]" << " " << "[EDIT]" << " " << "[FORMAT]" << " " << "[VIEW]" << " " << "[HELP]";
@@ -43,7 +43,7 @@ int displayMenu()
 			{
 				break;
 			}
-			if (input == -32)
+			if (input == -32) //arrow key
 			{
 				input = _getch();
 				if (input == 72) 
@@ -69,22 +69,21 @@ int displayMenu()
 					{
 						xy.gotoXY(56, 13);
 
-						cout << "  New  " << endl;
+						cout << " New " << endl;
 
 						xy.gotoXY(54, 14);
 
-						cout << "  Open...  " << endl;
+						cout << " Open " << endl;
 
 						xy.gotoXY(54, 15);
 						color.changeTextColor(252);
-						cout << "  X Close  " << endl;
+						cout << " Exit " << endl;
 						color.changeTextColor(240);
 						option++;
 					}
 				}
 			}
 		}
-		//creates blinking animation for option when user navigates to the chosen option
 		if (option == 1) 
 		{
 			xy.gotoXY(56, 13);
@@ -100,7 +99,7 @@ int displayMenu()
 			cout << "          ";
 			Sleep(500);
 			xy.gotoXY(54, 14);
-			cout << "> Open... <";
+			cout << "> Open <";
 			Sleep(500);
 		}
 
@@ -111,7 +110,7 @@ int displayMenu()
 			Sleep(500);
 			xy.gotoXY(54, 15);
 			color.changeTextColor(252);
-			cout << "> X Close <";
+			cout << "> Exit <";
 			color.changeTextColor(240);
 			Sleep(500);
 		}

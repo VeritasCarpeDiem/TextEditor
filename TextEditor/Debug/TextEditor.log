@@ -1,2 +1,6 @@
-﻿  Node.cpp
+﻿  main.cpp
+C:\Users\Veritas\Desktop\TextEditor\TextEditor\main.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Veritas\Desktop\TextEditor\TextEditor\main.cpp(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Veritas\Desktop\TextEditor\TextEditor\main.cpp(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Veritas\Desktop\TextEditor\TextEditor\main.cpp(8,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   TextEditor.vcxproj -> C:\Users\Veritas\Desktop\TextEditor\Debug\TextEditor.exe
