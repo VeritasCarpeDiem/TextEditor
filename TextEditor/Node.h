@@ -17,6 +17,7 @@ public:
 	{
 
 	}
+	//parameterized constructor:
 	Node(char input) :letter(input){} //initialization list
 };
 

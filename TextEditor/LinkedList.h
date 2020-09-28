@@ -30,5 +30,6 @@ public:
 	Node* Find(char letter);
 	bool Contains(char letter);
 	void Clear();
+	void sleepDot(int ms);
 };
 

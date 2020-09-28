@@ -11,7 +11,6 @@ LinkedList::LinkedList()
 {
 	Head = nullptr;
 	Tail = nullptr;
-
 }
 
 LinkedList::~LinkedList()
@@ -40,6 +39,14 @@ void LinkedList::DisplayList()
 	}
 }
 
+void LinkedList::sleepDot(int milliseconds)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		cout << ". ";
+		Sleep(milliseconds);
+	}
+}
 void LinkedList::Write()
 {
 	ofstream OutPutFile;
@@ -56,7 +63,6 @@ void LinkedList::Write()
 	{
 		rows[i] = nullptr;
 	}
-
 	while (letter != 27) //27 = ESC
 	{
 		xy.gotoXY(x, y);
@@ -67,11 +73,9 @@ void LinkedList::Write()
 			letter = _getch();
 			if (letter == 75) //75 = LEFT arrow
 			{
-				//3 cases:
-
-				if (x < 0) //if you press LEFT arrow at edge of window
+				if (x < 0) 
 				{
-					//do nothing
+					//If you press LEFT arrow at edge of window, do nothing
 				}
 				else if (x != 0 && current->prev != nullptr)
 				{
@@ -94,11 +98,10 @@ void LinkedList::Write()
 			}
 			if (letter == 72) //72 = UP arrow
 			{
-				if (y > 0)
+				if (y>0)
 				{
 					y--; //Move Cursor UP
-					Head = rows[y];
-					current = Head;
+					Head =Tail=current= rows[y];
 					for (int i = 0; i < x - 1; i++)
 					{
 						current = current->next;
@@ -107,11 +110,10 @@ void LinkedList::Write()
 			}
 			if (letter == 80) //80 = DOWN arrow
 			{
-				if (y <= 10 && rows[y + 1] != nullptr) //if there is a row below, go down a row
+				if (y < 10 && rows[y + 1] != nullptr) //if there is a row below, go down a row
 				{
 					y++;
-					Head = rows[y];
-					current = Head;
+					Head =Tail= current=rows[y];
 					for (int i = 0; i < x - 1; i++)
 					{
 						current = current->next;
@@ -119,18 +121,16 @@ void LinkedList::Write()
 				}
 			}
 		}
-		else if (letter == 13) //13 = return
+		else if (letter == 13) //13 = enter (start new row)
 		{
 			x = 0;
 			y++;
-			Head = nullptr;
-			current = nullptr;
+			Head = Tail = current = nullptr;
 		}
 		else if (letter == 27) // 27 = ESC
 		{
 			//do nothing
 		}
-
 		else if (letter == 8)// 8 = Backspace
 		{
 			if (current == Head)
@@ -141,11 +141,11 @@ void LinkedList::Write()
 				{
 					x -= 1;
 				}
-				rows[y]->letter = '\0';
+				rows[y]->letter = ' ';
 			}
-			else if (rows[y] != 0 && current == Head) //deletes carriage return
+			else if (rows[y] != 0 && current == Head) //delete carriage return
 			{
-				y--; //go up
+				y--; 
 				Head = rows[y];
 				current = Head;
 				while (current->next)
@@ -163,7 +163,6 @@ void LinkedList::Write()
 					current->next = nullptr;
 					//DeleteLast();
 				}
-
 			}
 			else if (current->next != nullptr && current->prev != nullptr)//delete in middle
 			{
@@ -180,18 +179,16 @@ void LinkedList::Write()
 			if (Head == nullptr)//first character of file
 			{
 				Node* temp = new Node(letter);
-
-				Head = temp;
+				Head =Tail= temp;
 				current = Head;
 				rows[y] = Head;
 				//AddFirst(letter, current, rows, y);
 			}
 			else
 			{
-				if (x == 0)//inserts at front after typing
+				if (x==0)//inserts at front after typing
 				{
-					Node* temp = new Node(letter);// Create a new node and assign the character
-
+					Node* temp = new Node(letter);
 					temp->next = Head;
 					Head->prev = temp;
 					temp->prev = nullptr;
@@ -201,32 +198,30 @@ void LinkedList::Write()
 				else if (current->next ==nullptr)//Add at end 
 				{
 					Node* temp = new Node(letter);
-					
 					current->next = temp;
 					temp->prev = current;
-					current = current->next; 
+					Tail = temp;
+					current = current->next;
 				}
-				else //Add character in middle
+				else //Add character in middle (current->next != nullptr && current -> prev != nullptr)
 				{
 					Node* temp = new Node(letter);
-					
 					temp->next = current->next;
 					current->next->prev = temp;
-					current->next = temp;
 					temp->prev = current;
+					current->next = temp;
 					current = temp;
 				}
-			}
+			}	
 			cout << letter;
 			x++;
 		}
 		system("cls");
-		for (int i = 0; i < 10; i++) //Display rows of Linked List
+		for (int i = 0; i < 10; i++) //Displays Linked List
 		{
 			if (rows[i] != nullptr)
 			{
-				Node* current;
-				current = rows[i];
+				Node* current = rows[i];
 				while (current != nullptr)
 				{
 					cout << current->letter;
@@ -235,14 +230,16 @@ void LinkedList::Write()
 				cout << endl;
 			}
 		}
+		xy.gotoXY(0,11);
+		cout << "Row: " << y + 1 << " Column: " << x << " | "<< "ESC to exit";
 		xy.gotoXY(x, y);
 	}
-
-	//Write to a file:
+	//Save to file:
 	char input;
-	cout << endl << endl << "Would you like to save? (y/n)" << endl;
+	xy.gotoXY(0,10);
+	cout<< "Would you like to save? (Y/N)" << endl;
 	cin >> input;
-	if (input == 'y')
+	if (input == 'y' ||input =='Y')
 	{
 		string fileName;
 		cout << "Name of file: ";
@@ -264,6 +261,8 @@ void LinkedList::Write()
 			}
 		}
 		xy.gotoXY(x, y);
+		cout << "Saving file ";
+		sleepDot(500);
 		File.close();
 	}
 	else 
@@ -271,7 +270,6 @@ void LinkedList::Write()
 		exit(0);
 	}
 }
-
 
 void LinkedList::AddFirst(char letter, Node* current, Node* rows[10], int y)
 {
@@ -304,10 +302,16 @@ void LinkedList::DeleteFirst()
 	{
 		throw exception("Empty List!");
 	}
+	else
+	{
+		Node* temp = Head;
+		Head = Head->next;
+		delete(temp);
+	}
 
 }
 
-bool LinkedList::DeleteInMiddle(char letter) //delete in middle
+bool LinkedList::DeleteInMiddle(char letter)
 {
 	Node* current = Head;
 	while (current != nullptr)

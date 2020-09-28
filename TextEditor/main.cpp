@@ -17,67 +17,56 @@ int displayMenu()
 
 	color.changeTextColor(143);
 	cout << "[FILE]" << " " << "[EDIT]" << " " << "[FORMAT]" << " " << "[VIEW]" << " " << "[HELP]";
-
 	color.changeTextColor(240);
-	xy.gotoXY(56, 13);
-	cout << " New " << endl;
-
-	xy.gotoXY(54, 14);
-
-	cout << " Open " << endl;
-
-	xy.gotoXY(55, 15);
+	xy.gotoXY(40, 13);
+	cout << "   1. New   " << endl;
+	xy.gotoXY(40, 14);
+	cout << "   2. Open   " << endl;
+	xy.gotoXY(40, 15);
 	color.changeTextColor(252);
-	cout << " Exit " << endl;
-
+	cout << "   3. Exit   " << endl;
 	color.changeTextColor(240);
 	xy.gotoXY(43, 20);
-	cout << "Press Spacebar to select an option";
+	cout << "Press Enter to select";
 
 	while (true)
 	{
 		if (_kbhit())
 		{
 			input = _getch();
-			if (input == 32) //32 =spacebar
+			if (input == 13) //32 =spacebar
 			{
 				break;
 			}
 			if (input == -32) //arrow key
 			{
 				input = _getch();
-				if (input == 72) 
+				if (input == 72) //72 = UP arrow
 				{
 					if (option > 1)
 					{
-						xy.gotoXY(56, 13);
-
-						cout << " New " << endl;
-						xy.gotoXY(54, 14);
-
-						cout << " Open " << endl;
-						xy.gotoXY(54, 15);
+						xy.gotoXY(40, 13);
+						cout << "   1. New   ";
+						xy.gotoXY(40, 14);
+						cout << "   2. Open   ";
+						xy.gotoXY(40, 15);
 						color.changeTextColor(252);
-						cout << "  Exit  " << endl;
+						cout << "   3. Exit   ";
 						color.changeTextColor(240);
 						option--;
 					}
 				}
-				else if (input == 80)
+				else if (input == 80) //80 = DOWN arrow
 				{
 					if (option < 3) 
 					{
-						xy.gotoXY(56, 13);
-
-						cout << " New " << endl;
-
-						xy.gotoXY(54, 14);
-
-						cout << " Open " << endl;
-
-						xy.gotoXY(54, 15);
+						xy.gotoXY(40, 13);
+						cout << "   1. New   ";
+						xy.gotoXY(40, 14);
+						cout << "   2. Open   ";
+						xy.gotoXY(40, 15);
 						color.changeTextColor(252);
-						cout << " Exit " << endl;
+						cout << "   3. Exit   ";
 						color.changeTextColor(240);
 						option++;
 					}
@@ -86,31 +75,27 @@ int displayMenu()
 		}
 		if (option == 1) 
 		{
-			xy.gotoXY(56, 13);
-			cout << "          ";
+			xy.gotoXY(40, 13);
 			Sleep(500);
-			xy.gotoXY(56, 13);
-			cout << "> New <";
+			xy.gotoXY(40, 13);
+			cout << "-> 1. New <-";
 			Sleep(500);
 		}
 		if (option == 2) 
 		{
-			xy.gotoXY(54, 14);
-			cout << "          ";
+			xy.gotoXY(40, 14);
 			Sleep(500);
-			xy.gotoXY(54, 14);
-			cout << "> Open <";
+			xy.gotoXY(40, 14);
+			cout << "-> 2. Open <-";
 			Sleep(500);
 		}
-
 		if (option == 3)
 		{
-			xy.gotoXY(54, 15);
-			cout << "            ";
+			xy.gotoXY(40, 15);
 			Sleep(500);
-			xy.gotoXY(54, 15);
+			xy.gotoXY(40, 15);
 			color.changeTextColor(252);
-			cout << "> Exit <";
+			cout << "-> 3. Exit <-";
 			color.changeTextColor(240);
 			Sleep(500);
 		}
@@ -140,12 +125,11 @@ void openFile()
 
 int main()
 {
-	system("color F0");
-
 	LinkedList Editor{};
 	int option = 0;
+	system("color F0");
 	option = displayMenu();
-
+	
 	switch (option)
 	{
 	case 1:
