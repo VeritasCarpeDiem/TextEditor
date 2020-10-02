@@ -230,14 +230,14 @@ void LinkedList::Write()
 				cout << endl;
 			}
 		}
-		xy.gotoXY(0,11);
+		xy.gotoXY(0,20);
 		cout << "Row: " << y + 1 << " Column: " << x << " | "<< "ESC to exit";
 		xy.gotoXY(x, y);
 	}
 	//Save to file:
 	char input;
 	xy.gotoXY(0,10);
-	cout<< "Would you like to save? (Y/N)" << endl;
+	cout << "Would you like to save? (Y/N)";
 	cin >> input;
 	if (input == 'y' ||input =='Y')
 	{
@@ -261,7 +261,8 @@ void LinkedList::Write()
 			}
 		}
 		xy.gotoXY(x, y);
-		cout << "Saving file ";
+		system("cls");
+		cout << "Saving file";
 		sleepDot(500);
 		File.close();
 	}
